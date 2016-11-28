@@ -1,0 +1,6 @@
+S:\Программирование\VS\Blackjack Game\Blackjack Game\bin\Debug\Blackjack Game.exe.config
+S:\Программирование\VS\Blackjack Game\Blackjack Game\bin\Debug\Blackjack Game.exe
+S:\Программирование\VS\Blackjack Game\Blackjack Game\bin\Debug\Blackjack Game.pdb
+S:\Программирование\VS\Blackjack Game\Blackjack Game\obj\Debug\Blackjack Game.csprojResolveAssemblyReference.cache
+S:\Программирование\VS\Blackjack Game\Blackjack Game\obj\Debug\Blackjack Game.exe
+S:\Программирование\VS\Blackjack Game\Blackjack Game\obj\Debug\Blackjack Game.pdb
