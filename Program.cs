@@ -10,12 +10,9 @@ namespace Blackjack_Game
     {
         static void Main()
         {
-            Player player = new Player();
-            while (true)
-            {
-                player.PlayTheGame();
-                System.Console.WriteLine("________________________________________________________\n");
-            }
+            BlackjackViewInterface textVeiw = new BlackjackTextView(System.Console.In, System.Console.Out);
+            GameSession gameSession = new GameSession(textVeiw);
+            gameSession.RunGameLoop();
         }
     }
 }

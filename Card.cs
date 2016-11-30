@@ -13,23 +13,7 @@ namespace Blackjack_Game
 
         public enum CardValue {Ace = 1, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King}
 
-        public readonly CardSuit suit;
-        public readonly CardValue value;
-
-        public Card (CardSuit _s, CardValue _v)
-        {
-            suit = _s;
-            value = _v;
-        }
-        public Card(int _s, int _v)
-        {
-            suit = (CardSuit)_s;
-            value = (CardValue)_v;
-        }
-
-        public override string ToString()
-        {
-            return value.ToString() + " of " + suit.ToString().ToLower();
-        }
+        public CardSuit suit;
+        public CardValue value;
     }
 }

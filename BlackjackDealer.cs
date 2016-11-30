@@ -5,15 +5,25 @@ namespace Blackjack_Game
 {
     class BlackjackDealer
     {
+        #region const
+        const int standartDeckAmount = 2;
+        const int cardsInDeck = 52;
+        const int suitAmount = 4;
+        const int cardValuesAmount = 13;
+        const int valueEnumFirstNumber = 1;
+        #endregion
+
+        private BlackJackRules rules;
         private Card[] entireDeck;
         private int deckMarker;
         private int bet;
         public List<Card> playerHand { get; private set; }
         public List<Card> dealerHand { get; private set; }
 
-        public BlackjackDealer(int deckAmount = 2)
+        public BlackjackDealer(int deckAmount = standartDeckAmount)
         {
             DeckInit(deckAmount);
+            rules = new BlackJackRules();
             playerHand = new List<Card>();
             dealerHand = new List<Card>();
             Shaffle();
@@ -21,12 +31,12 @@ namespace Blackjack_Game
 
         private void DeckInit(int deckAmount)
         {
-            entireDeck = new Card[52 * deckAmount];
-            for (int i = 0; i < 52 * deckAmount; i++)
+            entireDeck = new Card[cardsInDeck * deckAmount];
+            for (int i = 0; i < entireDeck.Length; i++)
             {
-                int suit = (i / 13) % 4;
-                int value = i % 13 + 1;
-                entireDeck[i] = new Card(suit, value);
+                int suit = (i / cardValuesAmount) % suitAmount;
+                int value = i % cardValuesAmount + valueEnumFirstNumber;
+                entireDeck[i] = new Card() { suit = (Card.CardSuit)suit, value = (Card.CardValue)value };
             }
         }
 
@@ -50,7 +60,7 @@ namespace Blackjack_Game
         {
             playerHand.Clear();
             dealerHand.Clear();
-            if (deckMarker > entireDeck.Length / 3)
+            if (rules.IsTimeToShuffle(deckMarker, entireDeck.Length))
             {
                 Shaffle();
                 deckMarker = 0;
@@ -60,27 +70,12 @@ namespace Blackjack_Game
         private void DrowCard(List<Card> hand)
         {
             hand.Add(entireDeck[deckMarker]);
-            deckMarker++;
-            
+            deckMarker++;            
         }
 
-        public int CalculatePoints(List<Card> hand)
+        public bool IsEnoughForPlayer()
         {
-            int points = 0;
-            int aces = 0;
-            foreach (Card c in hand)
-            {
-                int value = (int)c.value;
-                if (value > 10) points += 10;
-                else if (value == 1) { points += 11; aces++; }
-                else points += value;
-            }
-            while (aces > 0 && points > 21)
-            {
-                aces--;
-                points -= 10;
-            }
-            return points;
+            return rules.IsEnoughForPlayer(playerHand);
         }
 
         public void RoundStart(int _bet)
@@ -102,21 +97,21 @@ namespace Blackjack_Game
             {
                 DrowCard(dealerHand);
             }
-            while (CalculatePoints(dealerHand) < 17);
+            while (!rules.IsEnoughForDealer(dealerHand));
         }
 
-        public int CalculatePrize()
+        public int GetPlayerPoints()
         {
-            int playerPoints = CalculatePoints(playerHand);
-            int dealerPoints = CalculatePoints(dealerHand);
-            if (playerPoints == dealerPoints || (playerPoints > 21 && dealerPoints > 21))
-                return bet;
-            else if (playerPoints > 21 || (playerPoints < dealerPoints && dealerPoints <= 21))
-                return 0;
-            else if (playerPoints == 21 && playerHand.Count == 2)
-                return bet * 3;
-            else
-                return bet * 2;
+            return rules.CalculatePoints(playerHand);
+        }
+        public int GetDealerPoints()
+        {
+            return rules.CalculatePoints(dealerHand);
+        }
+
+        private int CalculatePrize()
+        {
+            return (int) rules.CalculatePrizeMultiplier(dealerHand, playerHand) * bet;
         }
 
         public int RoundEnd()
