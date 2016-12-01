@@ -5,72 +5,32 @@ namespace Blackjack_Game
 {
     class BlackjackDealer
     {
-        #region const
         const int standartDeckAmount = 2;
-        const int cardsInDeck = 52;
-        const int suitAmount = 4;
-        const int cardValuesAmount = 13;
-        const int valueEnumFirstNumber = 1;
-        #endregion
 
         private BlackJackRules rules;
-        private Card[] entireDeck;
-        private int deckMarker;
+        private Deck deck;
         private int bet;
         public List<Card> playerHand { get; private set; }
         public List<Card> dealerHand { get; private set; }
 
         public BlackjackDealer(int deckAmount = standartDeckAmount)
         {
-            DeckInit(deckAmount);
+            deck = new Deck(deckAmount);
             rules = new BlackJackRules();
             playerHand = new List<Card>();
             dealerHand = new List<Card>();
-            Shaffle();
+            deck.Shaffle();
         }
-
-        private void DeckInit(int deckAmount)
-        {
-            entireDeck = new Card[cardsInDeck * deckAmount];
-            for (int i = 0; i < entireDeck.Length; i++)
-            {
-                int suit = (i / cardValuesAmount) % suitAmount;
-                int value = i % cardValuesAmount + valueEnumFirstNumber;
-                entireDeck[i] = new Card() { suit = (Card.CardSuit)suit, value = (Card.CardValue)value };
-            }
-        }
-
-        private void Shaffle()
-        {
-            Card tmp;
-            Random rand = new Random();
-            for (int i = 0; i < entireDeck.Length - 1; i++)
-            {
-                int j = rand.Next(i, entireDeck.Length - 1);
-                if (i != j)
-                {
-                    tmp = entireDeck[i];
-                    entireDeck[i] = entireDeck[j];
-                    entireDeck[j] = tmp;
-                }
-            }
-        }
+        
 
         private void ClearBoard()
         {
             playerHand.Clear();
             dealerHand.Clear();
-            if (rules.IsTimeToShuffle(deckMarker, entireDeck.Length))
+            if (rules.IsTimeToShuffle(deck.deckMarker, deck.CardsInDeck()))
             {
-                Shaffle();
-                deckMarker = 0;
+                deck.Shaffle();
             }
-        }
-
-        private void DrowCard(List<Card> hand)
-        {
-            hand.Add(entireDeck[deckMarker]);
-            deckMarker++;            
         }
 
         public bool IsEnoughForPlayer()
@@ -82,20 +42,25 @@ namespace Blackjack_Game
         {
             ClearBoard();
             bet = _bet;
-            DrowCard(dealerHand);
-            DrowCard(playerHand);
-            DrowCard(playerHand);
+            DrowForDealer();
+            DrowForPlayer();
+            DrowForPlayer();
         }
 
-        public void DrowMoreForPlayer()
+        public void DrowForPlayer()
         {
-            DrowCard(playerHand);
+            playerHand.Add(deck.DrowCard());
         }
+        public void DrowForDealer()
+        {
+            dealerHand.Add(deck.DrowCard());
+        }
+
         private void DrowMoreForDealer()
         {
             do
             {
-                DrowCard(dealerHand);
+                DrowForDealer();
             }
             while (!rules.IsEnoughForDealer(dealerHand));
         }

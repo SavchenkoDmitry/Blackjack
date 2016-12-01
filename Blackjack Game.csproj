@@ -48,6 +48,7 @@
     <Compile Include="BlackjackDealer.cs" />
     <Compile Include="BlackjackTextView.cs" />
     <Compile Include="BlackjackViewInterface.cs" />
+    <Compile Include="Deck.cs" />
     <Compile Include="GameSession.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

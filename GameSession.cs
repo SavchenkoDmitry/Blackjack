@@ -71,7 +71,7 @@ namespace Blackjack_Game
 
         private void DrowCard()
         {
-            dealer.DrowMoreForPlayer();
+            dealer.DrowForPlayer();
             textVeiw.DrawDrowedCard(dealer.playerHand[dealer.playerHand.Count - 1]);
         }
 
