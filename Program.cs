@@ -10,7 +10,7 @@ namespace Blackjack_Game
     {
         static void Main()
         {
-            BlackjackViewInterface textVeiw = new BlackjackTextView(System.Console.In, System.Console.Out);
+            BlackjackTextView textVeiw = new BlackjackTextView(System.Console.In, System.Console.Out);
             GameSession gameSession = new GameSession(textVeiw);
             gameSession.RunGameLoop();
         }

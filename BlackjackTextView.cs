@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Blackjack_Game
 {
-    class BlackjackTextView : BlackjackViewInterface
+    class BlackjackTextView
     {
         TextReader input;
         TextWriter output;

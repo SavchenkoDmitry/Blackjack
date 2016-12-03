@@ -8,12 +8,12 @@ namespace Blackjack_Game
 {
     class GameSession
     {
-        BlackjackDealer dealer;
-        BlackjackViewInterface textVeiw;
+        BlackjackSercive dealer;
+        BlackjackTextView textVeiw;
 
-        public GameSession(BlackjackViewInterface tv)
+        public GameSession(BlackjackTextView tv)
         {
-            dealer = new BlackjackDealer();
+            dealer = new BlackjackSercive();
             textVeiw = tv;
         }
 

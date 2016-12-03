@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Blackjack_Game
 {
-    class BlackjackDealer
+    class BlackjackSercive
     {
         const int standartDeckAmount = 2;
 
@@ -13,7 +13,7 @@ namespace Blackjack_Game
         public List<Card> playerHand { get; private set; }
         public List<Card> dealerHand { get; private set; }
 
-        public BlackjackDealer(int deckAmount = standartDeckAmount)
+        public BlackjackSercive(int deckAmount = standartDeckAmount)
         {
             deck = new Deck(deckAmount);
             rules = new BlackJackRules();

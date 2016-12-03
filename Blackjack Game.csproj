@@ -45,9 +45,8 @@
   <ItemGroup>
     <Compile Include="BlackJackRules.cs" />
     <Compile Include="Card.cs" />
-    <Compile Include="BlackjackDealer.cs" />
+    <Compile Include="BlackjackSercive.cs" />
     <Compile Include="BlackjackTextView.cs" />
-    <Compile Include="BlackjackViewInterface.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="GameSession.cs" />
     <Compile Include="Program.cs" />
